@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Carousel Gallery</title>
+  <style>
+    body {
+      margin: 0; padding: 0;
+      font-family: Arial, sans-serif;
+      background: #fffef5;
+    }
+    .section-header {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff9800, #e65100, #ffd54f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      padding: 30px 10px 10px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      animation: fadeInHeader 2s ease-in-out;
+    }
+    @keyframes fadeInHeader {
+      from { opacity: 0; transform: translateY(-30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .carousel-container {
+      width: 100%;
+      overflow: hidden;
+      background: #fffbe7;
+      border-top: 2px solid #f5d142;
+      border-bottom: 2px solid #f5d142;
+      padding: 10px 0;
+    }
+    .carousel-track {
+      display: flex;
+      /* 200px width + 20px margin per image × 10 images × 2 (duplicated) = 4400px */
+      width: 4400px;
+      animation: scrollGallery 20s linear infinite;
+    }
+    .carousel-track img {
+      width: 200px;
+      height: 150px;
+      object-fit: cover;
+      margin: 0 10px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    @keyframes scrollGallery {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-2200px); }
+      /* 2200px = one full set of images, so the animation loops perfectly */
+    }
+    @media(max-width:600px) {
+      .carousel-track img { width: 120px; height: 90px; }
+      .carousel-track { width: 2640px; }
+      @keyframes scrollGallery {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-1320px); }
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- <div class="section-header">గోల్డ్ ఫేజ్ సహకారులు</div> -->
+  <div class="carousel-container">
+    <div class="carousel-track" id="carousel">
+      <!-- 10 images, each appears twice for looping -->
+      <img src="images/Aagman/PHOTO-2024-09-05-14-18-49 2.jpg" alt="PHOTO-2024-09-05-14-18-49 2.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-18-53.jpg" alt="PHOTO-2024-09-05-14-18-53.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-18-55.jpg" alt="PHOTO-2024-09-05-14-18-55.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-18-56.jpg" alt="PHOTO-2024-09-05-14-18-56.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-18-57.jpg" alt="PHOTO-2024-09-05-14-18-57.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-19-01.jpg" alt="PHOTO-2024-09-05-14-19-01.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-19-02.jpg" alt="PHOTO-2024-09-05-14-19-02.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-19-08 2.jpg" alt="PHOTO-2024-09-05-14-19-08 2.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-19-08.jpg" alt="PHOTO-2024-09-05-14-19-08.jpg">
+      <!-- duplicated for seamless infinite scroll -->
+      <img src="images/Aagman/PHOTO-2024-09-05-14-18-49 2.jpg" alt="PHOTO-2024-09-05-14-18-49 2.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-18-53.jpg" alt="PHOTO-2024-09-05-14-18-53.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-18-55.jpg" alt="PHOTO-2024-09-05-14-18-55.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-18-56.jpg" alt="PHOTO-2024-09-05-14-18-56.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-18-57.jpg" alt="PHOTO-2024-09-05-14-18-57.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-19-01.jpg" alt="PHOTO-2024-09-05-14-19-01.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-19-02.jpg" alt="PHOTO-2024-09-05-14-19-02.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-19-08 2.jpg" alt="PHOTO-2024-09-05-14-19-08 2.jpg"> <img src="images/Aagman/PHOTO-2024-09-05-14-19-08.jpg" alt="PHOTO-2024-09-05-14-19-08.jpg">
+
+    </div>
+  </div>
+</body>
+</html>

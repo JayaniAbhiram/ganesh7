@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About - Profiles</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #25D366;
+      --primary-hover: #1ebe5d;
+      --contrast: #e9eaea;
+      --easing1: cubic-bezier(0.75, 0.05, 0.915, 0.335);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: 0.4s all var(--easing1);
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f4f4f4;
+    }
+
+    #stage {
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      background-color: #fdfdfd;
+    }
+
+    .profiles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      width: calc(50% - 1rem); /* 2 per row desktop */
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      transition: 0.3s ease;
+    }
+
+    .card-info {
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .name {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .card-bottom {
+      margin-top: 1rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-in-out;
+    }
+
+    .card-bottom.show {
+      max-height: 100px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    .buttons a {
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .buttons a:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 600px) {
+      .card {
+        width: 100%; /* 1 per row on mobile */
+      }
+    }
+
+    body.dark {
+      background-color: #1c1c1c;
+      color: #f2f2f2;
+    }
+
+    body.dark .card {
+      background: #2c2c2c;
+    }
+
+    body.dark .buttons a {
+      background: #66ff99;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="navbar-placeholder"></div>
+
+  <section id="stage">
+    <div class="profiles" id="profileContainer">
+      <!-- Cards will be dynamically added here -->
+    </div>
+  </section>
+
+  <div id="footer-placeholder"></div>
+  <div id="whatsapp-placeholder"></div>
+
+  <script>
+    const names = [
+      "Jaydon Carder", "Ava Reynolds", "Noah Bryant", "Mila Bennett", "Elijah Parker",
+      "Sofia Turner", "Liam Flores", "Chloe Mitchell", "Lucas Campbell", "Grace Hughes",
+      "Mason James", "Lily Simmons", "Oliver Ward", "Harper Phillips", "Henry Foster",
+      "Ella Peterson", "Jack Gray", "Aria Cooper", "Sebastian Cox", "Scarlett Watson",
+      "Levi Butler", "Victoria Brooks", "Daniel Howard", "Penelope Richardson", "Logan Russell",
+      "Layla Diaz", "Jackson Torres", "Nora Jenkins", "Aiden Perry", "Zoey Coleman"
+    ];
+
+    const whatsappNumbers = [
+      "919000000001", "919000000002", "919000000003", "919000000004", "919000000005",
+      "919000000006", "919000000007", "919000000008", "919000000009", "919000000010",
+      "919000000011", "919000000012", "919000000013", "919000000014", "919000000015",
+      "919000000016", "919000000017", "919000000018", "919000000019", "919000000020",
+      "919000000021", "919000000022", "919000000023", "919000000024", "919000000025",
+      "919000000026", "919000000027", "919000000028", "919000000029", "919000000030"
+    ];
+
+    const profileContainer = document.getElementById('profileContainer');
+
+    names.forEach((name, index) => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const img = document.createElement("img");
+      img.src = `images/gallery/unnamed ${index + 1}.png`;
+      img.alt = name;
+
+      const info = document.createElement("div");
+      info.className = "card-info";
+      info.innerHTML = `
+        <p class="name">${name}</p>
+        <div class="card-bottom">
+          <div class="buttons">
+            <a href="https://wa.me/${whatsappNumbers[index]}" target="_blank">
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+          </div>
+        </div>
+      `;
+
+      card.appendChild(img);
+      card.appendChild(info);
+      profileContainer.appendChild(card);
+
+      card.addEventListener('click', function () {
+        const bottom = this.querySelector('.card-bottom');
+        bottom.classList.toggle('show');
+      });
+    });
+  </script>
+
+  <!-- Navbar loading -->
+  <script>
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+        setTimeout(() => {
+          const hamburger = document.querySelector('.hamburger');
+          const navLinks = document.querySelector('.nav-links');
+          if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+              navLinks.classList.toggle('show');
+            });
+          }
+        }, 0);
+      });
+  </script>
+
+  <!-- Footer loading -->
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').innerHTML = data;
+      });
+  </script>
+
+  <!-- WhatsApp widget (optional floating widget) -->
+  <script>
+    fetch('whatsapp.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('whatsapp-placeholder').innerHTML = data;
+      });
+  </script>
+
+</body>
+</html>
