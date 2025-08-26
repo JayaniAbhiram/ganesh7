@@ -1,226 +1,198 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="te">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ganesh Chaturthi Events Timeline</title>
-
+  <title>గణేష్ చతుర్థి ఉత్సవాలు - టైమ్‌లైన్</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
   <style>
     * {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
+      box-sizing: border-box;
       font-family: "Roboto", sans-serif;
     }
-
     html {
       scroll-behavior: smooth;
     }
-
-    .copyright__part {
-      padding: 10px 20px;
-      background: #ff6f00;
-      text-align: center;
-      font-weight: 300;
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 999;
+    body {
+      background: linear-gradient(135deg, #fff3e0 0%, #ffcc80 100%);
+      min-height: 100vh;
     }
-
-    .copyright__part a {
-      font-size: 14px;
-      text-decoration: none;
-      color: #ffffff;
-    }
-
-    /* Marquee */
-    .marquee-bar {
-      width: 100%;
-      background: yellow;
-      color: #000;
-      font-weight: 600;
-      font-size: 16px;
-      padding: 8px 0;
-      overflow: hidden;
-      white-space: nowrap;
-      position: static;
-      top: 0;
-      z-index: 1000;
-    }
-
-    /* Bifurcation Tabs */
-    .day-tabs {
-      display: flex;
-      justify-content: center;
-      background: #1a1a1a;
-      padding: 10px 0;
-      position: fixed;
-      top: 40px;
-      z-index: 998;
-    }
-
-    .day-tabs a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 12px;
-      padding: 6px 14px;
-      background: #444;
-      border-radius: 20px;
-      font-weight: 500;
-      transition: background 0.3s ease;
-    }
-
-    .day-tabs a:hover {
-      background: #dc4a38;
-    }
-
-    /* Timeline CSS */
-    .timeline__cover {
-      background: #ffffff;
-      padding: 100px 0;
-      color: #ffffff;
-    }
-
-    .timeline__title {
-      max-width: 840px;
+    /* Timeline Section */
+    .timeline-section {
+      padding: 40px 20px;
+      max-width: 1200px;
       margin: 0 auto;
+    }
+    .section-title {
       text-align: center;
-      padding: 0 16px;
-    }
-
-    .timeline__title h2 {
-      font-size: 48px;
+      font-size: clamp(32px, 5vw, 42px);
+      color: #bf360c;
+      margin-bottom: 20px;
       font-weight: 600;
-      line-height: 56px;
-      letter-spacing: -0.5px;
-      text-transform: capitalize;
-      margin-bottom: 16px;
-      color: #ff6f00;
-    }
-
-    .timeline {
-      padding-top: 64px;
-    }
-
-    .timeline ul {
-      padding-top: 100px;
-    }
-
-    .timeline ul li {
-      background: #fdd835;
       position: relative;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: #5d4037;
+      font-size: 18px;
+      margin-bottom: 50px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .timeline {
+      position: relative;
+      max-width: 800px;
       margin: 0 auto;
-      width: 2px;
-      margin-bottom: 48px;
-      list-style-type: none;
     }
-
-    .timeline ul li:last-child {
-      padding-bottom: 7px;
-      width: 0;
-      height: 0;
-    }
-
-    .timeline ul li:before {
+    .timeline::before {
       content: '';
-      background: #dc4a38;
       position: absolute;
       left: 50%;
-      top: -32px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, #ff6f00, #ffd54f, #ff6f00);
       transform: translateX(-50%);
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
+      border-radius: 2px;
     }
-
-    .timeline ul li .hidden {
-      opacity: 0;
-    }
-
-    .timeline ul li .content {
+    .timeline-item {
+      margin-bottom: 50px;
       position: relative;
-      top: -100px;
-      width: 289px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.6s ease;
     }
-
-    .timeline ul li .content .badge {
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(45deg, #ff6f00, #ffd54f);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      border: 4px solid white;
+      box-shadow: 0 0 0 4px #ff6f00;
+      z-index: 2;
+    }
+    .timeline-content {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      position: relative;
+      width: 45%;
+      border: 2px solid #ffcc80;
+    }
+    .timeline-item:nth-child(odd) .timeline-content {
+      margin-left: 0;
+    }
+    .timeline-item:nth-child(even) .timeline-content {
+      margin-left: 55%;
+    }
+    .timeline-content::before {
+      content: "";
+      position: absolute;
+      top: 25px;
+      width: 0; height: 0;
+      border: 15px solid transparent;
+    }
+    .timeline-item:nth-child(odd) .timeline-content::before {
+      right: -30px;
+      border-left-color: white;
+    }
+    .timeline-item:nth-child(even) .timeline-content::before {
+      left: -30px;
+      border-right-color: white;
+    }
+    .event-badge {
+      background: linear-gradient(45deg, #4caf50, #66bb6a);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
       font-size: 12px;
-      line-height: 16px;
-      text-transform: uppercase;
-      color: #000000;
-      display: inline-block;
-      padding: 6px 12px;
-      background: #2dcd71;
-      border-radius: 1000px;
-    }
-
-    .timeline ul li .content h3 {
-      font-size: 20px;
       font-weight: 600;
-      line-height: 28px;
-      color: #b71c1c;
-      margin: 16px 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: inline-block;
+      margin-bottom: 15px;
     }
-
-    .timeline ul li .content p {
-      color: black;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 20px;
+    .event-title {
+      font-size: 24px;
+      color: #bf360c;
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-
-    .timeline ul li:nth-child(odd) .content {
-      left: 70px;
+    .event-description {
+      color: #424242;
+      line-height: 1.6;
+      font-size: 16px;
     }
-
-    .timeline ul li:nth-child(even) .content {
-      left: calc(-289px - 70px);
+    .event-icon {
+      font-size: 28px;
+      color: #ff6f00;
     }
-
-    @media screen and (max-width: 1020px) {
-      .timeline ul li .content {
-        width: 41vw;
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .timeline::before {
+        left: 30px;
       }
-
-      .timeline ul li:nth-child(even) .content {
-        left: calc(-41vw - 45px);
+      .timeline-item::before {
+        left: 30px;
+      }
+      .timeline-content {
+        width: calc(100% - 70px) !important;
+        margin-left: 70px !important;
+      }
+      .timeline-content::before {
+        left: -30px !important;
+        border-right-color: white !important;
+        border-left-color: transparent !important;
+      }
+      .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 70px !important;
       }
     }
-
-    @media screen and (max-width: 700px) {
-      .timeline__cover {
-        padding: 32px 0;
-        background: #fff8f0;
-      }
-
-      .timeline__title {
-        text-align: left;
-      }
-
-      .timeline {
-        padding-top: 32px;
-      }
-
-      .timeline ul li {
-        margin-left: 20px !important;
-      }
-
-      .timeline ul li .content {
-        width: calc(100vw - 100px);
-        transition: .2s;
-        left: 38px !important;
-      }
-
-      .timeline ul li .content p {
-        min-height: 110px;
-      }
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(45deg, #ff6f00, #ff8f00);
+      color: white;
+      border: none;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 111, 0, 0.3);
+      transition: all 0.3s ease;
+      z-index: 999;
+      opacity: 0;
+      transform: translateY(100px);
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .back-to-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(255, 111, 0, 0.4);
     }
   </style>
 </head>
@@ -228,227 +200,149 @@
 
   <div id="navbar-placeholder"></div>
 
-  <!-- Marquee -->
-  <div class="marquee-bar">
-    <marquee behavior="scroll" direction="left" scrollamount="6">
-      🎉 Happy Ganesh Chaturthi! | Join us for Aarti at 7 PM daily | Nimarjanam on Day 10 | Prasad Distribution after Pooja 🎊
-    </marquee>
+  <!-- ప్రదర్శన సెక్షన్ (Timeline Section) -->
+  <div class="timeline-section">
+    <h2 class="section-title">గణేష్ చతుర్థి ఉత్సవాలు - టైమ్‌లైన్</h2>
+    <p class="section-subtitle">సంప్రదాయ పూజలు, సాంస్కృతిక కార్యక్రమాలు మరియు సామాజిక సంబరాలతో కూడిన గణేశ్ చతుర్థి పండుగ ప్రయాణాన్ని ఆస్వాదించండి.</p>
+
+    <div class="timeline" id="timeline">
+
+      <!-- పండుగ పరిచయం -->
+      <div class="timeline-item" id="overview">
+        <div class="timeline-content" tabindex="0">
+          <span class="event-badge">స్వాగతం</span>
+          <h3 class="event-title">
+            <i class="fas fa-home event-icon"></i>
+            పండుగ పరిచయం
+          </h3>
+          <p class="event-description">
+            గణేష్ చతుర్థి ప్రపంచమంతా ప్రాచుర్యం పొందిన పండుగ. అడ్డంకులను తొలగించే విఘ్నేశ్వరుని ఆరాధనతో,
+            కుటుంబాలు మరియు సమాజం కలసి ఒక ఆధ్యాత్మిక, సాంస్కృతిక వేడుకగా కూడా గణేష్ ఉత్సవాలు జరుపుకుంటారు.
+          </p>
+        </div>
+      </div>
+
+      <!-- సంప్రదాయ పూజలు -->
+      <div class="timeline-item" id="rituals">
+        <div class="timeline-content" tabindex="0">
+          <span class="event-badge">పవిత్రత</span>
+          <h3 class="event-title">
+            <i class="fas fa-pray event-icon"></i>
+            సంప్రదాయ పూజలు
+          </h3>
+          <p class="event-description">
+            ప్రతిరోజు ఆర్తి, ప్రత్యేక పూజలు, మోదక, లడ్డు నివేదనలు, మంత్రాల జపం మరియు అనేక సంప్రదాయ కార్యక్రమాలు,
+            భక్తులకు పవిత్ర అనుభూతిని అందిస్తాయి.
+          </p>
+        </div>
+      </div>
+
+      <!-- సాంస్కృతిక కార్యక్రమాలు -->
+      <div class="timeline-item" id="events">
+        <div class="timeline-content" tabindex="0">
+          <span class="event-badge">సాంస్కృతికం</span>
+          <h3 class="event-title">
+            <i class="fas fa-music event-icon"></i>
+            సాంస్కృతిక కార్యక్రమాలు
+          </h3>
+          <p class="event-description">
+            సాంప్రదాయ సంగీతం, నాట్యం, కథా వినోదం, పయ్యల కోసం చిత్రలేఖనం మరియు కళా పోటీలను ఆస్వాదించండి.
+          </p>
+        </div>
+      </div>
+
+      <!-- సమాజ భాగస్వామ్యం -->
+      <div class="timeline-item" id="community">
+        <div class="timeline-content" tabindex="0">
+          <span class="event-badge">సమూహంతో</span>
+          <h3 class="event-title">
+            <i class="fas fa-users event-icon"></i>
+            సమాజ కలిసికట్టుగా
+          </h3>
+          <p class="event-description">
+            సమూహ భోజనం, పండల్ అలంకరణ, స్వచ్ఛంద సేవాకార్యం మరియు మిత్రుల, పొరుగువారితో కలిసి నడచే ఆధ్యాత్మిక జరుపుక ఒక భాగం అవుతారు.
+          </p>
+        </div>
+      </div>
+
+      <!-- మహోత్సవ ముగింపు -->
+      <div class="timeline-item" id="celebration">
+        <div class="timeline-content" tabindex="0">
+          <span class="event-badge">మహోత్సవం</span>
+          <h3 class="event-title">
+            <i class="fas fa-star event-icon"></i>
+            ఉత్సవ ముగింపు
+          </h3>
+          <p class="event-description">
+            ఉత్సవానికి ఘన ముగింపు వేదికగా, గణపతి విగ్రహాన్ని నీటిలో మునగిస్తారు (విసర్జన), సంబరాలు జరుపుకుంటారు.
+          </p>
+        </div>
+      </div>
+
+      <!-- ప్రకృతి పరిరక్షణ విసర్జన -->
+      <div class="timeline-item" id="visarjan">
+        <div class="timeline-content" tabindex="0">
+          <span class="event-badge">విసర్జన</span>
+          <h3 class="event-title">
+            <i class="fas fa-water event-icon"></i>
+            పర్యావరణ అనుకూల విసర్జన
+          </h3>
+          <p class="event-description">
+            ప్రకృతికి హానికరం చేర్పకుండా మృదువైన మట్టి విగ్రహాలతో విసర్జన నిర్వహించడం ద్వారా పర్యావరణ ప్రభావం తగ్గించుకోవడం.
+          </p>
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <!-- Bifurcation Tabs -->
-  <div style="overflow-x: auto; white-space: nowrap; background: #1a1a1a; padding: 12px 10px; position: sticky; top: 60px; left: 0; right: 0; width: 100%; z-index: 500; border-bottom: 2px solid #fdd835;">
+  <!-- Back to Top Button -->
+  <button class="back-to-top" aria-label="పైకి scroll చేయు" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
-  <a href="#day1" style="display: inline-block; color: white; text-decoration: none; padding: 8px 20px; margin-right: 10px; background: #ff5722; border-radius: 30px; font-weight: bold;">Day 1</a>
-  <a href="#day2" style="display: inline-block; color: white; text-decoration: none; padding: 8px 20px; margin-right: 10px; background: #4caf50; border-radius: 30px; font-weight: bold;">Day 2</a>
-  <a href="#day3" style="display: inline-block; color: white; text-decoration: none; padding: 8px 20px; margin-right: 10px; background: #03a9f4; border-radius: 30px; font-weight: bold;">Day 3</a>
-  <a href="#day4" style="display: inline-block; color: white; text-decoration: none; padding: 8px 20px; margin-right: 10px; background: #9c27b0; border-radius: 30px; font-weight: bold;">Day 4</a>
-  <a href="#day5" style="display: inline-block; color: white; text-decoration: none; padding: 8px 20px; margin-right: 10px; background: #ff9800; border-radius: 30px; font-weight: bold;">Day 5</a>
-  
-</div>
-
-
-
-  <!-- Timeline Sections (Repeat for each day) -->
-  <section class="timeline__cover" id="day1">
-    <div class="timeline__title"><h2>Day 1</h2></div>
-    <div class="timeline">
-      <ul>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 1</div>
-            <h3>Pooja Planning</h3>
-            <p>Initial arrangements, decoration setup, and community planning for Ganesh arrival.</p>
-          </div>
-        </li>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 2</div>
-            <h3>Ganesh Sthapana</h3>
-            <p>Traditional rituals to welcome Lord Ganesha and energize the idol.</p>
-          </div>
-        </li>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 1</div>
-            <h3>Pooja Planning</h3>
-            <p>Initial arrangements, decoration setup, and community planning for Ganesh arrival.</p>
-          </div>
-        </li>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 1</div>
-            <h3>Pooja Planning</h3>
-            <p>Initial arrangements, decoration setup, and community planning for Ganesh arrival.</p>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Day 2 -->
-  <section class="timeline__cover" id="day2">
-    <div class="timeline__title"><h2>Day 2</h2></div>
-    <div class="timeline">
-      <ul>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 3</div>
-            <h3>Aarti & Bhajans</h3>
-            <p>Morning and evening Aarti, devotional songs, and community participation.</p>
-          </div>
-        </li>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 1</div>
-            <h3>Pooja Planning</h3>
-            <p>Initial arrangements, decoration setup, and community planning for Ganesh arrival.</p>
-          </div>
-        </li>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 1</div>
-            <h3>Pooja Planning</h3>
-            <p>Initial arrangements, decoration setup, and community planning for Ganesh arrival.</p>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Day 3 -->
-  <section class="timeline__cover" id="day3">
-    <div class="timeline__title"><h2>Day 3</h2></div>
-    <div class="timeline">
-      <ul>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 4</div>
-            <h3>Kids Competitions</h3>
-            <p>Drawing, storytelling, and dance contests for children with prizes.</p>
-          </div>
-        </li>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 1</div>
-            <h3>Pooja Planning</h3>
-            <p>Initial arrangements, decoration setup, and community planning for Ganesh arrival.</p>
-          </div>
-        </li>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 1</div>
-            <h3>Pooja Planning</h3>
-            <p>Initial arrangements, decoration setup, and community planning for Ganesh arrival.</p>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Day 4 -->
-  <section class="timeline__cover" id="day4">
-    <div class="timeline__title"><h2>Day 4</h2></div>
-    <div class="timeline">
-      <ul>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 5</div>
-            <h3>Cultural Night</h3>
-            <p>Music, folk dance, and community performances in the evening.</p>
-          </div>
-        </li>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 1</div>
-            <h3>Pooja Planning</h3>
-            <p>Initial arrangements, decoration setup, and community planning for Ganesh arrival.</p>
-          </div>
-        </li>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 1</div>
-            <h3>Pooja Planning</h3>
-            <p>Initial arrangements, decoration setup, and community planning for Ganesh arrival.</p>
-          </div>
-        </li>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 1</div>
-            <h3>Pooja Planning</h3>
-            <p>Initial arrangements, decoration setup, and community planning for Ganesh arrival.</p>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Day 5 -->
-  <section class="timeline__cover" id="day5">
-    <div class="timeline__title"><h2>Day 5</h2></div>
-    <div class="timeline">
-      <ul>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 6</div>
-            <h3>Nimarjanam Preparation</h3>
-            <p>Procession planning, final pooja, and arrangements for visarjan.</p>
-          </div>
-        </li>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 1</div>
-            <h3>Pooja Planning</h3>
-            <p>Initial arrangements, decoration setup, and community planning for Ganesh arrival.</p>
-          </div>
-        </li>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 1</div>
-            <h3>Pooja Planning</h3>
-            <p>Initial arrangements, decoration setup, and community planning for Ganesh arrival.</p>
-          </div>
-        </li>
-        <li>
-          <div class="content">
-            <div class="badge">STEP 1</div>
-            <h3>Pooja Planning</h3>
-            <p>Initial arrangements, decoration setup, and community planning for Ganesh arrival.</p>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <div id="footer-placeholder"></div>
-
-  <!-- Animations -->
   <script>
-    $(document).ready(function () {
-      $('.content').each(function () {
-        var bottom_of_object = $(this).offset().top + $(this).outerHeight();
-        var bottom_of_window = $(window).height();
-
-        if (bottom_of_object > bottom_of_window) {
-          $(this).addClass('hidden');
+    // Animate timeline items on scroll
+    function animateOnScroll() {
+      const items = document.querySelectorAll('.timeline-item');
+      const backToTop = document.querySelector('.back-to-top');
+      items.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight - 100;
+        if (isVisible) {
+          item.classList.add('visible');
         }
       });
-
-      $(window).scroll(function () {
-        $('.hidden').each(function () {
-          var bottom_of_object = $(this).offset().top + $(this).outerHeight();
-          var bottom_of_window = $(window).scrollTop() + $(window).height();
-
-          if (bottom_of_window > bottom_of_object) {
-            $(this).animate({ 'opacity': '1' }, 700);
-          }
-        });
+      // Show or hide back to top button
+      if (window.scrollY > 300) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    }
+    // Smooth scroll to top
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          const offsetTop = targetElement.offsetTop - 50;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
       });
     });
-  </script>
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+    setTimeout(animateOnScroll, 500);
 
-  <!-- Dynamic Content -->
-  <script>
-    fetch('navbar.html')
+
+
+     fetch('navbar.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('navbar-placeholder').innerHTML = data;
@@ -463,30 +357,7 @@
         }, 0);
       });
 
-    fetch('footer.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('footer-placeholder').innerHTML = data;
-      });
 
-    fetch('whatsapp.html')
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById('whatsapp-placeholder').innerHTML = data;
-      });
   </script>
-
-  <div id="whatsapp-placeholder"></div>
-  
-
-  <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});"
-  style="position: fixed; bottom: 20px; left: 20px; padding: 12px 20px; background: linear-gradient(45deg, #f57c00, #ffcc80); color: white; border: none; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; z-index: 9999; transition: all 0.3s ease; font-size: 16px;"
-  onmouseover="this.style.background='linear-gradient(45deg, #ff9800, #fdd835)'"
-  onmouseout="this.style.background='linear-gradient(45deg, #f57c00, #ffcc80)'">
-  Top
-</button>
-
-
-
 </body>
 </html>
